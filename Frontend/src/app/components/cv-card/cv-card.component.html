@@ -1,0 +1,8 @@
+<div class="cv-card">
+  <h3>{{cv.title}}</h3>
+  <small>Template: {{cv.template}}</small>
+  <div class="actions">
+    <button (click)="view.emit(cv.cv_id)">View</button>
+    <button class="delete" (click)="delete.emit(cv.cv_id)">Delete</button>
+  </div>
+</div>

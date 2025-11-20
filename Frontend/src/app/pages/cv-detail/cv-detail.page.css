@@ -1,0 +1,4 @@
+.cv-detail { max-width:900px; margin:auto; font-family:'Roboto',sans-serif; padding:20px; background:#fff; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.1);}
+.cv-header h1 { margin:0; color:#1976d2; }
+.cv-header small { color:#666; }
+.cv-body { margin-top:20px; display:grid; grid-gap:15px; }
