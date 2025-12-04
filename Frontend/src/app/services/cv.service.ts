@@ -1,11 +1,12 @@
 import axios from 'axios';
+import { environment } from '../../enviroment/enviroment';
 import { User, Skill, Language, Education, Experience, Project } from '../interfaces/user.interface';
 
-const API_URL = 'http://localhost:8000/cvs/';
+const API_URL = `${environment.apiUrl}/cvs/`;
 
 export interface Cv {
   _id?: string;
-  user_id: string; 
+  user_id: string;
   title: string;
   skills?: Skill[];
   languages?: Language[];

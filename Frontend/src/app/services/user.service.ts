@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { User } from '../interfaces/user.interface';
+import { environment } from '../../enviroment/enviroment';
 
-const API_URL = 'http://localhost:8000/users/';
+const API_URL = `${environment.apiUrl}/users/`;
 
 export const UserService = {
   getAll: async (): Promise<User[]> => {
