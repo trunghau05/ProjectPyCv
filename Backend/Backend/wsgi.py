@@ -1,21 +1,15 @@
 """
 WSGI config for Backend project.
-
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
+...
 """
 
 import os
-import sys  # <--- BƯỚC 1: IMPORT THƯ VIỆN SYS
+import sys
 from django.core.wsgi import get_wsgi_application
 
-# <--- BƯỚC 2: THÊM CODE THÊM ĐƯỜNG DẪN DỰ ÁN VÀO PYTHON PATH
-path_to_backend = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-if path_to_backend not in sys.path:
-    sys.path.insert(0, path_to_backend)
-# ------------------------------------------------------------------------------------
+# Cấp đường dẫn: Thêm thư mục 'Backend' (chứa các app) vào sys.path
+# 'Backend/Backend/wsgi.py' -> '..' -> 'Backend/' (thư mục gốc chứa các app)
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Backend.Backend.settings')
 
