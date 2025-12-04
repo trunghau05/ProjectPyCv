@@ -1,6 +1,0 @@
-.cv-card { padding:15px; border-radius:10px; background:#f7f7f7; box-shadow:0 2px 8px rgba(0,0,0,0.1); transition:0.3s; width:250px;}
-.cv-card:hover { box-shadow:0 5px 15px rgba(0,0,0,0.2); }
-.actions { margin-top:10px; display:flex; gap:10px; }
-button.delete { background:#f44336; color:#fff; border:none; padding:5px 10px; border-radius:5px; cursor:pointer; }
-button.delete:hover { background:#d32f2f; }
-button { cursor:pointer; }

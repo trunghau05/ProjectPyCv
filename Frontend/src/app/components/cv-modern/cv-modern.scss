@@ -1,0 +1,128 @@
+.cv.new-template {
+    width: 100%;
+    background: white;
+    font-family: 'Segoe UI', Arial;
+    color: #222;
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+}
+
+/* === HEADER === */
+.cv-header {
+    position: relative;
+    padding: 40px 60px;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    background: #fff;
+    min-height: 200px;
+}
+
+.cv-header h1 {
+    font-size: 38px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.cv-header h3 {
+    margin: 5px 0 30px 0;
+    font-size: 16px;
+    color: #444;
+}
+
+/* Contact */
+.contact-list p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+.contact-list .icon {
+    margin-right: 8px;
+}
+
+/* Avatar */
+.avatar {
+    width: 140px;
+    height: 140px;
+    background: #ddd;
+    border-radius: 50%;
+    background-image: url('https://i.imgur.com/3G0pQHk.png'); /* Avatar demo */
+    background-size: cover;
+    background-position: center;
+    border: 5px solid white;
+}
+
+/* Diagonal effect */
+.diagonal {
+    position: absolute;
+    bottom: -40px;
+    left: -30px;
+    width: 130%;
+    height: 120px;
+    background: #f3e9d0;
+    transform: rotate(-5deg);
+    z-index: -1;
+}
+
+/* === BODY === */
+.cv-body {
+    display: flex;
+    padding: 50px 60px;
+    gap: 50px;
+}
+
+/* Left / Right Columns */
+.left-column {
+    width: 35%;
+}
+
+.right-column {
+    width: 65%;
+}
+
+/* Section Titles */
+.cv-body h2 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+}
+
+.cv-body h4 {
+    margin: 5px 0;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.cv-body p {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Lists */
+.cv-body ul {
+    margin: 0 0 15px 0;
+    padding-left: 18px;
+}
+
+.cv-body li {
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+/* Experience items */
+.job {
+    margin-bottom: 25px;
+}
+
+.year {
+    float: right;
+    color: #444;
+    font-size: 13px;
+}
+
+/* Force print colors */
+.new-template *,
+.new-template {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}

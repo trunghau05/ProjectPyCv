@@ -1,0 +1,79 @@
+<div class="cv">
+    <div class="cv-header">
+        <div class="flex-center header-left">
+            <div class="avatar flex-center">
+                <img src="{{user.img}}" alt="">
+            </div>
+            <div class="name">
+                <h1>{{user.name}}</h1>
+                <h3>{{user.role}}</h3>
+            </div>
+            <div class="info">
+                <div>
+                    <p style="display: flex; align-items: center; margin-bottom: 10px;"><mat-icon style="font-size:14px;">email</mat-icon> {{user.email}}</p>
+                    <p style="display: flex; align-items: center"><mat-icon style="font-size:14px;">phone</mat-icon> {{user.phone}}</p>
+                </div>
+
+                <div>
+                    <p style="display: flex; align-items: center; margin-bottom: 10px;"><mat-icon style="font-size:14px;">home</mat-icon> {{user.address}}</p>
+                    <p style="display: flex; align-items: center;"><mat-icon style="font-size:14px;">cake</mat-icon> {{user.birth}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cv-body">   
+        <h2>Giới thiệu</h2>
+        <p>
+            {{user.about}}
+        </p>
+
+        <h2>Kỹ năng</h2>
+        <div class="skills-container">
+            <div class="skill" *ngFor="let s of user.skills">
+                <span class="skill-name">{{s.name}}</span>
+                <div class="skill-bar">
+                    <div class="skill-level" [style.width.%]="s.level"></div>
+                </div>
+                <span class="skill-percent">{{s.level}}%</span>
+            </div>
+        </div>
+
+
+        <div style="display: flex; gap: 30px">
+            <div style="width: 45%;">
+                <h2>Ngôn ngữ</h2>
+                <ul *ngFor="let l of user.languages">
+                    <li>{{l.name}} – {{l.level}}</li>
+                </ul>
+            </div>
+
+            <div style="width: 55%;">
+                <h2>Học vấn</h2>
+                <ul *ngFor="let e of user.educations">
+                    <li>{{e.school}} – {{e.branch}}<br/>{{e.start_year}} - {{e.end_year}}</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Kinh nghiệm làm việc</h2>
+        <ul *ngFor="let ex of user.experiences">
+            <li>
+                <strong>{{ex.company}} – {{ex.position}} ({{ex.start_date}} – {{ex.end_date}})</strong><br>
+                {{ex.description}}
+            </li>
+        </ul>
+
+        <h2>Dự án</h2>
+        <ul *ngFor="let p of user.projects">
+            <li>
+                <strong>{{p.title}}</strong><br>
+                Vai trò: {{p.role}} 
+                <br>
+                {{p.description}}
+            </li>
+        </ul>
+
+    </div>
+
+</div>

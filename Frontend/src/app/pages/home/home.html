@@ -1,0 +1,130 @@
+<div class="container">
+    <!-- HEADER -->
+    <div class="header">
+        <h2 style="margin-left: 20px;">Project PyCV</h2>
+        <div class="header-actions">
+            <div class="icon">
+                <mat-icon>share</mat-icon>
+                <span>Chia sẻ</span>
+            </div>
+            <div class="icon" (click)="downloadPDF()">
+                <mat-icon>download</mat-icon>
+                <span>Tải xuống</span>
+            </div>
+            <div class="icon primary" style="margin-right: 55px;">
+                <mat-icon>save</mat-icon>
+                <span>Lưu</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+        <!-- LEFT TOOLBAR -->
+        <div class="toolbar">
+            <h3 class="toolbar-title">Thông tin CV</h3>
+
+            <!-- PROFILE -->
+            <div class="toolbar-group">
+                <label>Họ và tên</label>
+                <input type="text" placeholder="Nhập họ tên" [(ngModel)]="user.name">
+            </div>
+            <div class="toolbar-group">
+                <label>Chức danh (Headline)</label>
+                <input type="text" placeholder="VD: Backend Developer" [(ngModel)]="user.role">
+            </div>
+            <div class="toolbar-group">
+                <label>Email</label>
+                <input type="text" placeholder="example@gmail.com" [(ngModel)]="user.email">
+            </div>
+            <div class="toolbar-group">
+                <label>Số điện thoại</label>
+                <input type="text" placeholder="0123 456 789" [(ngModel)]="user.phone">
+            </div>
+            <div class="toolbar-group">
+                <label>Địa chỉ</label>
+                <input type="text" placeholder="TP.HCM, Việt Nam" [(ngModel)]="user.address">
+            </div>
+            <div class="toolbar-group">
+                <label>Ngày sinh</label>
+                <input type="text" placeholder="01/01/2000" [(ngModel)]="user.birth">
+            </div>
+            <div class="toolbar-group">
+                <label>Giới thiệu</label>
+                <textarea rows="4" placeholder="Mô tả ngắn gọn về bản thân..." [(ngModel)]="user.about"></textarea>
+            </div>
+
+            <!-- SKILLS -->
+            <div class="toolbar-group">
+                <label>Kỹ năng</label>
+                <div *ngFor="let skill of user.skills; let i = index" class="sub-group">
+                    <input type="text" placeholder="Tên kỹ năng" [(ngModel)]="skill.name">
+                    <input type="number" placeholder="%" [(ngModel)]="skill.level">
+                    <button (click)="removeSkill(i)" class="remove-btn">Xóa</button>
+                </div>
+                <button (click)="addSkill()" class="add-section-btn">Thêm kỹ năng</button>
+            </div>
+
+            <!-- LANGUAGES -->
+            <div class="toolbar-group">
+                <label>Ngôn ngữ</label>
+                <div *ngFor="let lang of user.languages; let i = index" class="sub-group">
+                    <input type="text" placeholder="Tên ngôn ngữ" [(ngModel)]="lang.name">
+                    <input type="text" placeholder="Level" [(ngModel)]="lang.level">
+                    <button (click)="removeLanguage(i)" class="remove-btn">Xóa</button>
+                </div>
+                <button (click)="addLanguage()" class="add-section-btn">Thêm ngôn ngữ</button>
+            </div>
+
+            <!-- EDUCATION -->
+            <div class="toolbar-group">
+                <label>Học vấn</label>
+                <div *ngFor="let edu of user.educations; let i = index" class="sub-group column">
+                    <input type="text" placeholder="Trường" [(ngModel)]="edu.school">
+                    <input type="text" placeholder="Ngành" [(ngModel)]="edu.branch">
+                    <div class="row">
+                        <input type="number" placeholder="Từ năm" [(ngModel)]="edu.start_year">
+                        <input type="number" placeholder="Đến năm" [(ngModel)]="edu.end_year">
+                    </div>
+                    <button (click)="removeEducation(i)" class="remove-btn">Xóa</button>
+                </div>
+                <button (click)="addEducation()" class="add-section-btn">Thêm học vấn</button>
+            </div>
+
+            <!-- EXPERIENCE -->
+            <div class="toolbar-group">
+                <label>Kinh nghiệm làm việc</label>
+                <div *ngFor="let ex of user.experiences; let i = index" class="sub-group column">
+                    <input type="text" placeholder="Công ty" [(ngModel)]="ex.company">
+                    <input type="text" placeholder="Vị trí" [(ngModel)]="ex.position">
+                    <div class="row">
+                        <input type="text" placeholder="Từ năm" [(ngModel)]="ex.start_date">
+                        <input type="text" placeholder="Đến năm" [(ngModel)]="ex.end_date">
+                    </div>
+                    <textarea placeholder="Mô tả công việc" [(ngModel)]="ex.description" rows="6"></textarea>
+                    <button (click)="removeExperience(i)" class="remove-btn">Xóa</button>
+                </div>
+                <button (click)="addExperience()" class="add-section-btn">Thêm kinh nghiệm</button>
+            </div>
+
+            <!-- PROJECT -->
+            <div class="toolbar-group">
+                <label>Dự án</label>
+                <div *ngFor="let p of user.projects; let i = index" class="sub-group column">
+                    <input type="text" placeholder="Tên dự án" [(ngModel)]="p.title">
+                    <input type="text" placeholder="Vai trò" [(ngModel)]="p.role">
+                    <textarea placeholder="Mô tả dự án" [(ngModel)]="p.description" rows="6"></textarea>
+                    <button (click)="removeProject(i)" class="remove-btn">Xóa</button>
+                </div>
+                <button (click)="addProject()" class="add-section-btn">Thêm dự án</button>
+            </div>
+
+            <button class="update-btn" (click)="update()">Cập nhật</button>
+        </div>
+
+        <!-- CV PREVIEW -->
+        <div class="cv-container">
+            <app-cv-basic [user]="user"></app-cv-basic>
+        </div>
+    </div>
+</div>

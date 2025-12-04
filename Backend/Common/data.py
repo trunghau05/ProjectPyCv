@@ -3,7 +3,6 @@ from mongoengine import connect
 from models import *
 
 # =================== KẾT NỐI MONGO ===================
-connect(db="pycv_db", host="localhost", port=27017)
 # Nếu MongoDB có username/password, dùng:
 # connect(db="PyCV_DB", username="user", password="pass", host="localhost", port=27017)
 

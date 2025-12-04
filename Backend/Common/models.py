@@ -3,98 +3,94 @@ from datetime import datetime
 
 connect(
     db='pycv_db',
-    host='localhost',
-    port=27017
+    host='mongodb+srv://tintuc_db:tintuc_db@tintuc.dsywlmm.mongodb.net/',
 )
 
-# ======================= USER =======================
-class User(Document):
-    email = StringField(required=True, unique=True)
-    password = StringField(required=True)
-    fullname = StringField(required=True)
-    created_at = DateTimeField(default=datetime.utcnow)
+
+# ======================================================
+# =============  EMBEDDED MODELS  ======================
+# (nằm trong User – embedded, không tạo collection riêng)
+# ======================================================
+
+class Skill(EmbeddedDocument):
+    sk_id = StringField()
+    name = StringField(required=True)
+    level = IntField(min_value=0, max_value=100)   # %, ví dụ 80
 
 
-# ======================= PROFILE =======================
-class Profile(Document):
-    user = ReferenceField(User, required=True, reverse_delete_rule=CASCADE)
-    
-    headline = StringField()                # Ví dụ: "Fullstack Developer"
-    phone = StringField()
-    address = StringField()
-    birthday = StringField()
-    about_me = StringField()                # mô tả bản thân
-
-    created_at = DateTimeField(default=datetime.utcnow)
+class Language(EmbeddedDocument):
+    lg_id = StringField()
+    name = StringField(required=True)              # English
+    level = StringField()                          # B1 / Native / Fluent
 
 
-# ======================= SKILL =======================
-class Skill(Document):
-    user = ReferenceField(User, required=True, reverse_delete_rule=CASCADE)
-    name = StringField(required=True)            # VD: Python, Angular
-    level = IntField(min_value=1, max_value=5)   # 1–5 hoặc 20–100 tùy template
-
-
-# ======================= LANGUAGE =======================
-class Language(Document):
-    user = ReferenceField(User, required=True, reverse_delete_rule=CASCADE)
-    name = StringField(required=True)            # VD: English
-    level = StringField()                        # VD: "B1", "Fluent", "Native"
-
-
-# ======================= EDUCATION =======================
-class Education(Document):
-    user = ReferenceField(User, required=True, reverse_delete_rule=CASCADE)
-    
+class Education(EmbeddedDocument):
+    ed_id = StringField()
     school = StringField(required=True)
-    degree = StringField(required=True)           # "Bachelor", "Engineer"
-    major = StringField(required=True)
-    
+    branch = StringField()
     start_year = IntField()
     end_year = IntField()
 
 
-# ======================= EXPERIENCE =======================
-class Experience(Document):
-    user = ReferenceField(User, required=True, reverse_delete_rule=CASCADE)
-    
+class Experience(EmbeddedDocument):
+    ex_id = StringField()
     company = StringField(required=True)
     position = StringField(required=True)
     description = StringField()
-    
     start_date = StringField()
     end_date = StringField()
 
 
-# ======================= PROJECT =======================
-class Project(Document):
-    user = ReferenceField(User, required=True, reverse_delete_rule=CASCADE)
-    
+class Project(EmbeddedDocument):
+    pj_id = StringField()
     title = StringField(required=True)
     role = StringField()
     description = StringField()
     technologies = ListField(StringField())
 
 
-# ======================= CV TEMPLATE =======================
-class CVTemplate(Document):
+# ======================================================
+# ======================= USER =========================
+# (User chứa toàn bộ thông tin con – embedded list)
+# ======================================================
+
+class User(Document):
+    name = StringField(required=True)
+    img = StringField()
+    role = StringField()
+    email = StringField(required=True)
+    phone = StringField()
+    birth = StringField()
+    address = StringField()
+    about = StringField()
+
+    # Embedded array
+    skills = EmbeddedDocumentListField(Skill)
+    languages = EmbeddedDocumentListField(Language)
+    educations = EmbeddedDocumentListField(Education)
+    experiences = EmbeddedDocumentListField(Experience)
+    projects = EmbeddedDocumentListField(Project)
+
+    meta = {"collection": "users"}
+
+
+
+# ======================================================
+# ======================= CV CREATED ===================
+# (CV do user tạo – liên kết bằng reference)
+# ======================================================
+
+class CvCreated(Document):
+    us_id = ReferenceField(User, required=True)
+
+    skills = EmbeddedDocumentListField(Skill)
+    languages = EmbeddedDocumentListField(Language)
+    educations = EmbeddedDocumentListField(Education)
+    experiences = EmbeddedDocumentListField(Experience)
+    projects = EmbeddedDocumentListField(Project)
+
     title = StringField(required=True)
-    thumbnail = StringField()  # link ảnh mẫu
-    json_structure = DictField()  # cấu trúc bố cục template
-    is_public = BooleanField(default=True)
-
-
-# ======================= CV (USER CREATED) =======================
-class CurriculumVitae(Document):
-    user = ReferenceField(User, required=True, reverse_delete_rule=CASCADE)
-    template = ReferenceField(CVTemplate, required=True)
-    
-    profile = ReferenceField(Profile)
-    skills = ListField(ReferenceField(Skill))
-    languages = ListField(ReferenceField(Language))
-    educations = ListField(ReferenceField(Education))
-    experiences = ListField(ReferenceField(Experience))
-    projects = ListField(ReferenceField(Project))
-    
-    title = StringField(required=True)              # CV Backend Developer
     created_at = DateTimeField(default=datetime.utcnow)
+
+    meta = {"collection": "cv_created"}
+

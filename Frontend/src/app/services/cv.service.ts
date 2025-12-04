@@ -1,30 +1,42 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import axios from 'axios';
+import { User, Skill, Language, Education, Experience, Project } from '../interfaces/user.interface';
 
-@Injectable({ providedIn: 'root' })
-export class CvService {
-  private apiUrl = 'http://localhost:8000/cv';
+const API_URL = 'http://localhost:8000/cvs/';
 
-  constructor(private http: HttpClient) {}
-
-  createCV(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/create/`, data);
-  }
-
-  updateCV(cv_id: string, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/update/${cv_id}/`, data);
-  }
-
-  deleteCV(cv_id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/delete/${cv_id}/`);
-  }
-
-  getCVsByUser(user_id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/user/${user_id}/`);
-  }
-
-  getCVDetail(cv_id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${cv_id}/`);
-  }
+export interface Cv {
+  _id?: string;
+  user_id: string; 
+  title: string;
+  skills?: Skill[];
+  languages?: Language[];
+  educations?: Education[];
+  experiences?: Experience[];
+  projects?: Project[];
+  created_at?: string;
 }
+
+export const CvService = {
+  getAll: async (): Promise<Cv[]> => {
+    const res = await axios.get(API_URL);
+    return res.data;
+  },
+
+  getById: async (id: string): Promise<Cv> => {
+    const res = await axios.get(`${API_URL}${id}/`);
+    return res.data;
+  },
+
+  create: async (cv: Cv): Promise<Cv> => {
+    const res = await axios.post(API_URL, cv);
+    return res.data;
+  },
+
+  update: async (id: string, cv: Cv): Promise<Cv> => {
+    const res = await axios.put(`${API_URL}${id}/`, cv);
+    return res.data;
+  },
+
+  delete: async (id: string): Promise<void> => {
+    await axios.delete(`${API_URL}${id}/`);
+  }
+};
